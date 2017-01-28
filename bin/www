@@ -23,11 +23,18 @@ var server = http.createServer(app);
 
 var io = require('socket.io')(server);
 
-io.on('connection', function(socket){
-  console.log('warota');
-  // ここでわろてる数値をクライアントに送る
-  io.sockets.emit('warota', 80);
+io.sockets.on('connection', function(socket){
+  emit();
 });
+
+// ここでわろてる数値をクライアントに送る
+function emit() {
+  console.log('warota');
+  io.sockets.emit('warota', 80);
+
+  setTimeout(emit, 1000)
+}
+
 /**
  * Listen on provided port, on all network interfaces.
  */
