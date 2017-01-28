@@ -28,7 +28,26 @@ a {
 .main {
 }
 
-.video img{
+.login {
+  text-align: center;
+}
+
+.login .login-button {
+  margin: 200px auto 100px;
+  background: #FF6347;
+  border-radius: 4px;
+  padding: 10px;
+  color: white;
+  font-size: 14px;
+  display: inline-block;
+  text-decoration: none;
+}
+
+.login .login-button:hover {
+  background: #EA5337;
+}
+
+.video * {
   width: 100%;
 }
 
