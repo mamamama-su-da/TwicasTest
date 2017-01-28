@@ -30,4 +30,35 @@ router.get('/:userId', function(req, res, next) {
   // res.render('detail', { title: userId + 'さんの配信', userId });
 });
 
+router.get('/comments', function(req, res, next) {
+  console.log('comments api');
+  const url = 'https://apiv2.twitcasting.tv/movies/189037369/comments';
+  const token = req.cookies['auth_token'];
+  const body = {
+  };
+
+  console.log(token);
+
+  fetch(url, {
+    method: 'get',
+    body: body,
+    headers: {
+      'Authorization': `Bearer ${token}`
+    }
+  })
+  .then((res) => {
+    console.log(res);
+    return res.json();
+  })
+  .then((json) => {
+    console.log(json);
+    console.log(`json: ${json}`);
+    res.send(JSON.stringify(json));
+  })
+  .catch((err) => {
+    console.log(`error: ${err}`);
+    res.send('error');
+  });
+});
+
 module.exports = router;
