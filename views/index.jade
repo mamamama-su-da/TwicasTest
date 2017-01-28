@@ -1,5 +1,40 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+  nav.nav
+    p.nav_title name
+
+  main.main
+    .video
+      img(src="https://placehold.it/320x200")
+    .timeline
+      .timeline-item
+        .timeline-item_timestamp 11:07
+        .timeline-item_content
+          .timeline-item_img
+            img(src="https://d2dcan0armyq93.cloudfront.net/photo/odai/600/ace577a51592c4e14c7c8c7b87e60320_600.jpg")
+          .timeline-item_comment
+            お前らアキレス腱伸ばした?
+        .timeline-item_icon
+            img(src="https://placehold.it/50x50")
+      .timeline-item
+        .timeline-item_timestamp 10:07
+        .timeline-item_content
+          .timeline-item_comment
+            テスト2
+        .timeline-item_icon
+            img(src="https://placehold.it/50x50")
+      .timeline-item.is-others
+        .timeline-item_timestamp 10:06
+        .timeline-item_content
+          .timeline-item_comment
+            テスト1
+        .timeline-item_icon
+            img(src="https://placehold.it/50x50")
+      .timeline-item.is-others
+        .timeline-item_timestamp 10:06
+        .timeline-item_content
+          .timeline-item_comment
+            テスト1
+        .timeline-item_icon
+            img(src="https://placehold.it/50x50")
