@@ -57,9 +57,13 @@ block content
         - var formattedTime = hours + ':' + minutes.substr(-2)
         .timeline-item_timestamp= formattedTime
         .timeline-item_content
-          .timeline-item_img
-            img(src="")
-          .timeline-item_comment= comment.message
+          - var regex = new RegExp("^http[s]?.*(png|jpg)$");
+          - var isUrl = regex.test(comment.message)
+          - if(isUrl)
+            .timeline-item_img
+              img(src=comment.message)
+          - else
+            .timeline-item_comment= comment.message
         .timeline-item_icon
           - if(comment.from_user)
             img(src="#{comment.from_user.image}")
