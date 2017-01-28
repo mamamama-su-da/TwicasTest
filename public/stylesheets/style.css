@@ -29,22 +29,46 @@ a {
 }
 
 .login {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: #FF6347;
   text-align: center;
 }
 
+.login .login-inner {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  -webkit-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
 .login .login-button {
-  margin: 200px auto 100px;
-  background: #FF6347;
-  border-radius: 4px;
-  padding: 10px;
-  color: white;
-  font-size: 14px;
-  display: inline-block;
+  width: 80%;
+  height: 10vw;
+  line-height: 10vw;
+  margin: 10vw auto 0;
+  background-color: #FFF;
+  border-radius: 8px;
+  color: #FF6347;
+  font-size: 2.2rem;
+  font-weight: bold;
+  display: block;
   text-decoration: none;
 }
 
+.login .logo {
+  width: 60%;
+  height: auto;
+}
+
 .login .login-button:hover {
-  background: #EA5337;
+  background-color: #FFA899;
+  color: #FFF;
 }
 
 .video * {

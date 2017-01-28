@@ -1,8 +1,6 @@
 extends layout
-
 block content
-  nav.nav
-    p.nav_title name
-
   .login
-    a.login-button(href='/login/authenticate') ログインする
+    .login-inner
+      img.logo(src='../images/logo.png' alt='')
+      a.login-button(href='/login/authenticate') ツイキャスアカウントでログイン
