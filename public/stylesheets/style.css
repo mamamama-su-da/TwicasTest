@@ -110,6 +110,7 @@ a {
     padding: 8px;
     border-radius: 5px;
     font-size: 14px;
+    word-break: break-all;
 }
 
 .timeline-item_icon {
