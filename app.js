@@ -8,6 +8,7 @@ var bodyParser = require('body-parser');
 var index = require('./routes/index');
 var users = require('./routes/users');
 var test = require('./routes/test');
+var hls = require('./routes/hls');
 
 var app = express();
 
@@ -23,9 +24,17 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// CORSを許可する
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
+
 app.use('/', index);
 app.use('/users', users);
 app.use('/test', test);
+app.use('/hls', hls);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
