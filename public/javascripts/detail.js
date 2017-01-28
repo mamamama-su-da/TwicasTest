@@ -18,7 +18,7 @@ socket.on('warota', function(obj) {
 var $out = $('#jsi-out'),
   $dedeeen = $('#jsi-dedeeen'),
   $name = $('#jsi-out').text(),
-  synthesName = new SpeechSynthesisUtterance(userName),
+  synthesName = new SpeechSynthesisUtterance(userName === '高田' ? 'タカタ' : userName),
   synthesOut = new SpeechSynthesisUtterance('アウトー');
 synthesName.lang = "ja-JP";
 synthesOut.lang = "ja-JP";
