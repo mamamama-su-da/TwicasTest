@@ -1,8 +1,10 @@
 extends layout
 block head-js
   script(type='text/javascript',src='/javascripts/video.js')
-
 block content
+  - var width = 854, height = 480;
   h1 Video
-  video(width='854',height='480',src='https://media.w3.org/2010/05/sintel/trailer.mp4')
-    //source(id='mp4',src='https://media.w3.org/2010/05/sintel/trailer.mp4',type='video/mp4')
+  video#video(width=width,height=height,src='https://media.w3.org/2010/05/sintel/trailer.mp4',autoplay)
+  button#capture-button キャプチャする
+  div#capture
+  canvas#tmp-canvas(width=width,height=height)
