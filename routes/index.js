@@ -17,13 +17,14 @@ router.get('/:userId', function(req, res, next) {
 
   getUserInfo(userId, token)
   .then((info) => {
+    console.log(info);
     getComments(info.movie.id, token)
     .then((json) => {
-      // res.render('index', { title: 'Express', comments: json['comments'] });
-      res.render('detail', { title: userId + 'さんの配信', userId, live: info });
+      console.log(json.comments);
+      res.render('detail', { title: userId + 'さんの配信', userId, broadcaster: info.broadcaster, live: info, comments: json.comments});
     })
     .catch((err) => {
-      res.render('detail', { title: userId + 'さんの配信', userId, live: json });
+      res.render('error', {error: { status: 'コメントが取得できません' }});
     });
   })
   .catch((err) => {

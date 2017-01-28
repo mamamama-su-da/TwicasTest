@@ -47,35 +47,20 @@ block content
       source(src='/audios/dedeeen.mp3',type='audio/mp3')
 
   .timeline
-      .timeline-item
-        .timeline-item_timestamp 11:07
+    each comment in comments
+      - var klass = (comment.from_user.id === broadcaster.id ? 'timeline-item' : 'timeline-item is-others')
+
+      div(class=klass)
+        - var date = new Date(comment.created * 1000)
+        - var hours = date.getHours();
+        - var minutes = "0" + date.getMinutes();
+        - var formattedTime = hours + ':' + minutes.substr(-2)
+        .timeline-item_timestamp= formattedTime
         .timeline-item_content
           .timeline-item_img
-            img(src="https://d2dcan0armyq93.cloudfront.net/photo/odai/600/ace577a51592c4e14c7c8c7b87e60320_600.jpg")
-          .timeline-item_comment
-            お前らアキレス腱伸ばした?
+            img(src="")
+          .timeline-item_comment= comment.message
         .timeline-item_icon
-            img(src="https://placehold.it/50x50")
-      .timeline-item
-        .timeline-item_timestamp 10:07
-        .timeline-item_content
-          .timeline-item_comment
-            テスト2
-        .timeline-item_icon
-            img(src="https://placehold.it/50x50")
-      .timeline-item.is-others
-        .timeline-item_timestamp 10:06
-        .timeline-item_content
-          .timeline-item_comment
-            テスト1
-        .timeline-item_icon
-            img(src="https://placehold.it/50x50")
-      .timeline-item.is-others
-        .timeline-item_timestamp 10:06
-        .timeline-item_content
-          .timeline-item_comment
-            テスト1
-        .timeline-item_icon
-            img(src="https://placehold.it/50x50")
-
-
+          - if(comment.from_user)
+            img(src="#{comment.from_user.image}")
+            span= comment.from_user.name
