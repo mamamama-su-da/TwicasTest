@@ -1,22 +1,44 @@
+let stop = false;
+
 $(function() {
   $('#capture-button').click(getSnap);
+  $('#stop-auto-button').click(() => {
+    stop = true;
+  });
+  $('#auto-capture-button').click(() => {
+    stop = false;
+    function send() {
+      if (stop) return;
+
+      getSnap();
+      setTimeout(send, 1000);
+    }
+    send();
+  });
 
   var video = $('#video').get(0);
   var canvas = $('#tmp-canvas').get(0);
   var ctx = canvas.getContext('2d');
 
   function getSnap(){
-    ctx.drawImage(video,0,0);
+    ctx.drawImage(video,0,0,854,480);
+
+    const $div = $('<div style="display: inline-block; margin-bottom: 15px; text-align: center; vertical-align: top;">')
+    $('#capture').prepend($div);
 
     const imgSrc = canvas.toDataURL('image/png');
-    sendImage(imgSrc);
+    sendImage(imgSrc).then(smiling => {
+      let text = `warota: ${smiling || '0'}`
+      let color = smiling > 80 ? 'red' : 'black';
+      $div.append(`<div style="color: ${color};">${text}</div>`)
+    });
 
     var img = new Image();
     img.src = imgSrc;
     img.onload = function(){
-      img.width = img.width / 2;
-      img.height = img.height / 2;
-      $('#capture').append(img);
+      img.width = img.width / 4;
+      img.height = img.height / 4;
+      $div.append(img);
     }
   }
 });
@@ -33,22 +55,32 @@ function sendImage(imgSrc) {
   form.append('api_key', apiKey);
   form.append('api_secret', apiSecret);
 
-  $.ajax({
-    url,
-    method: 'POST',
-    dataType: 'json',
-    data: form,
-    processData: false,
-    contentType: false,
-  }).done(data => {
-    console.log(data);
+  return new Promise((resolve, reject) => {
+    $.ajax({
+      url,
+      method: 'POST',
+      dataType: 'json',
+      data: form,
+      processData: false,
+      contentType: false,
+    }).done(data => {
+      console.log(data);
 
-    if (data.face && data.face[0]) {
-      const smiling = data.face[0].attribute.smiling.value;
-      console.log(smiling);
-      alert(`笑顔 ${smiling}% !!!`)
-    }
+      if (data.face && data.face[0]) {
+        const smiling = data.face[0].attribute.smiling.value;
+        resolve(smiling);
+        console.log(smiling);
+        emit(smiling);
+        // alert(`笑顔 ${smiling}% !!!`)
+      } else {
+        resolve(null);
+      }
+    });
   });
+}
+
+function emit(warota) {
+  socket.emit('warota', warota);
 }
 
 function toBlog(base64) {

@@ -4,8 +4,11 @@ block head-js
 block content
   - var width = 854, height = 480;
   h1 Video
-  video#video(width=width,height=height,src='/hls/kami22_kawa4/metastream.m3u8/?video=1',autoplay)
-  button#capture-button キャプチャする
+  video#video(width=width,height=height,src='/hls/' + userId + '/metastream.m3u8/?video=1',autoplay)
+  div
+    button#capture-button キャプチャする
+    button#auto-capture-button 自動でキャプチャする
+    button#stop-auto-button 止まれ
   div#capture
   div(style='display:none;')
     canvas#tmp-canvas(width=width,height=height)

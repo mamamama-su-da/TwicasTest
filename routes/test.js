@@ -68,8 +68,9 @@ function toForm(params) {
 }
 
 
-router.get('/video', function(req, res, next) {
-  res.render('video', { title: 'Video' });
+router.get('/video/:userId', function(req, res, next) {
+  const userId = req.params.userId;
+  res.render('video', { title: 'Video', userId });
 });
 
 
