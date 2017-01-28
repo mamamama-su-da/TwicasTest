@@ -4,9 +4,9 @@ var fetch = require('node-fetch');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-
   res.redirect('/yu68315877');
 });
+
 router.get('/:userId', function(req, res, next) {
   const userId = req.params.userId;
 
