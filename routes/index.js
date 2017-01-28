@@ -38,10 +38,12 @@ redirect_uri=${encodeURIComponent('http://localhost:3000/auth')}`;
   .then((res) => res.json())
   .then((json) => {
     console.log(json)
+    res.cookie('auth_token', json.access_token, {maxAge:60000, httpOnly:false});
     res.redirect(302, '/');
   })
   .catch((err) => {
     console.log(err)
+    res.clearCookie('auth_token');
     res.redirect(400, '/login');
   });
 });
