@@ -1,5 +1,8 @@
 extends layout
 block head-js
+  script.
+    userId = "#{userId}";
+block hip-js
   script(type='text/javascript',src='/javascripts/video.js')
 block content
   - var width = 854, height = 480;

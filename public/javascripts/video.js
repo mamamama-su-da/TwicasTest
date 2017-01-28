@@ -1,3 +1,4 @@
+var socket = io();
 let stop = false;
 
 $(function() {
@@ -80,7 +81,10 @@ function sendImage(imgSrc) {
 }
 
 function emit(warota) {
-  socket.emit('warota', warota);
+  socket.emit('warota', {
+    userId,
+    warota,
+  });
 }
 
 function toBlog(base64) {

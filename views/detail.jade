@@ -1,0 +1,75 @@
+extends layout
+
+block head-js
+  script.
+    userId = "#{userId}";
+block hip-js
+  script(type='text/javascript',src='/javascripts/detail.js')
+
+block content
+  nav.nav
+    p.nav_title name
+
+  main.main
+    .movie
+      video#video(src=live.movie.hls_url,style='width: 100%; height: auto;',autoplay)
+      svg#jsi-out(stroke-width='10px',paint-order='stroke',class='out')
+        defs
+          linearGradient#g0(gradientUnits='userSpaceOnUse',x1='53.7769',y1='54.2505',x2='53.7769',y2='6.9971')
+            stop(offset='0',style='stop-color:#D12F00')
+            stop(offset='6.390501e-02',style='stop-color:#D23204')
+            stop(offset='0.1302',style='stop-color:#D33C11')
+            stop(offset='0.1975',style='stop-color:#D64C25')
+            stop(offset='0.2656',style='stop-color:#DA6242')
+            stop(offset='0.3343',style='stop-color:#DE7F68')
+            stop(offset='0.4025',style='stop-color:#E4A295')
+            stop(offset='0.4511',style='stop-color:#E9BEBA')
+            stop(offset='0.55',style='stop-color:#E9BEBA')
+            stop(offset='0.5508',style='stop-color:#E9BDB9')
+            stop(offset='0.5876',style='stop-color:#E39C8E')
+            stop(offset='0.6264',style='stop-color:#DE7F68')
+            stop(offset='0.6684',style='stop-color:#DA6648')
+            stop(offset='0.7135',style='stop-color:#D7522E')
+            stop(offset='0.7628',style='stop-color:#D44219')
+            stop(offset='0.8186',style='stop-color:#D2370B')
+            stop(offset='0.8863',style='stop-color:#D13103')
+            stop(offset='0.9987',style='stop-color:#D12F00')
+        g(font-family='YuGothic',font-size='50',font-weight='bold',font-style='italic',stroke='#000',stroke-width='10px',paint-order='stroke',style='text-shadow:-1px -1px 0 #FFF, 1px 1px 0 #000, 2px 2px 0 #000; letter-spacing: 5px')
+          text#out-name(x='50%',y='80%',text-anchor='middle',fill='url(#g0)')=live.broadcaster.name + ' OUT'
+    audio(hide,id='jsi-dedeeen',preload='auto')
+      source(src='https://files.slack.com/files-pri/T3SNXKH24-F3YCW5NDU/__________________.mp3',type='audio/mp3')
+
+
+  .timeline
+      .timeline-item
+        .timeline-item_timestamp 11:07
+        .timeline-item_content
+          .timeline-item_img
+            img(src="https://d2dcan0armyq93.cloudfront.net/photo/odai/600/ace577a51592c4e14c7c8c7b87e60320_600.jpg")
+          .timeline-item_comment
+            お前らアキレス腱伸ばした?
+        .timeline-item_icon
+            img(src="https://placehold.it/50x50")
+      .timeline-item
+        .timeline-item_timestamp 10:07
+        .timeline-item_content
+          .timeline-item_comment
+            テスト2
+        .timeline-item_icon
+            img(src="https://placehold.it/50x50")
+      .timeline-item.is-others
+        .timeline-item_timestamp 10:06
+        .timeline-item_content
+          .timeline-item_comment
+            テスト1
+        .timeline-item_icon
+            img(src="https://placehold.it/50x50")
+      .timeline-item.is-others
+        .timeline-item_timestamp 10:06
+        .timeline-item_content
+          .timeline-item_comment
+            テスト1
+        .timeline-item_icon
+            img(src="https://placehold.it/50x50")
+
+
