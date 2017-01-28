@@ -13,6 +13,12 @@ block content
 
   main.main
     .movie
+      div#filter
+      div#count-area
+        img#bat-img(src='/images/icon_bat.png')
+        span#bat-count.count 0
+        img#bat-img(src='/images/icon_foot.png')
+        span#foot-count.count 0
       video#video(src=live.movie.hls_url,style='width: 100%; height: auto;',autoplay)
       svg#jsi-out(stroke-width='10px',paint-order='stroke',class='out')
         defs

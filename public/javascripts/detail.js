@@ -7,8 +7,10 @@ socket.on('warota', function(obj) {
     return;
   }
 
-  const { warota, isTanaka } = obj;
-  if (warota > 80) {
+  const { warota, isTanaka, batCount, footCount } = obj;
+  if (warota >= 80) {
+    $('#bat-count').text(batCount);
+    $('#foot-count').text(footCount);
     startOut(isTanaka);
   }
 });
@@ -25,7 +27,7 @@ function startOut(isTanaka) {
 
   waiting = true;
 
-  $out.find('text').text(userName + (isTanaka ? ' タイキック' : 'OUT'))
+  $out.find('text').text(userName + (isTanaka ? ' タイキック' : ' OUT'));
   const synthesOut = new SpeechSynthesisUtterance(isTanaka ? 'タイキック' : 'アウトー');
   synthesOut.lang = "ja-JP";
   $dedeeen[0].play();
@@ -43,6 +45,5 @@ function startOut(isTanaka) {
 
   setTimeout(function(){
     waiting = false;
-
-  }, 8000);
+  }, 10000);
 }
