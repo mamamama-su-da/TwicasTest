@@ -21,6 +21,13 @@ app.set('port', port);
 
 var server = http.createServer(app);
 
+var io = require('socket.io')(server);
+
+io.on('connection', function(socket){
+  console.log('warota');
+  // ここでわろてる数値をクライアントに送る
+  io.sockets.emit('warota', 80);
+});
 /**
  * Listen on provided port, on all network interfaces.
  */

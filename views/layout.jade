@@ -4,5 +4,7 @@ html
     title= title
     link(rel='stylesheet', href='/stylesheets/style.css')
     block head-js
-  body
-    block content
+body
+  script(src='https://cdn.socket.io/socket.io-1.3.7.js')
+  script(src='/javascripts/socket.js')
+  block content
