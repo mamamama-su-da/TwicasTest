@@ -1,4 +1,20 @@
 console.log('comments');
-console.log($.cookie("auth_token"));
 
-// $.get('http://api.twitcasting.tv/api/commentlist?param=value');
+var token = $.cookie("auth_token");
+console.log(token);
+
+var commentApiUrl = '/comments';
+
+$.ajax({
+  url: commentApiUrl,
+  type: 'GET',
+  data: {
+  }
+})
+.done(function(res) {
+  console.log(res);
+})
+.fail(function(err, reason) {
+  console.log('failed');
+  console.log(reason);
+});
