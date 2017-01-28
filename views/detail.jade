@@ -3,12 +3,13 @@ extends layout
 block head-js
   script.
     userId = "#{userId}";
+    userName = "#{live.broadcaster.name}";
 block hip-js
   script(type='text/javascript',src='/javascripts/detail.js')
 
 block content
   nav.nav
-    p.nav_title name
+    p.nav_title=live.broadcaster.name + 'の部屋'
 
   main.main
     .movie
@@ -36,9 +37,8 @@ block content
             stop(offset='0.9987',style='stop-color:#D12F00')
         g(font-family='YuGothic',font-size='50',font-weight='bold',font-style='italic',stroke='#000',stroke-width='10px',paint-order='stroke',style='text-shadow:-1px -1px 0 #FFF, 1px 1px 0 #000, 2px 2px 0 #000; letter-spacing: 5px')
           text#out-name(x='50%',y='80%',text-anchor='middle',fill='url(#g0)')=live.broadcaster.name + ' OUT'
-    audio(hide,id='jsi-dedeeen',preload='auto')
-      source(src='https://files.slack.com/files-pri/T3SNXKH24-F3YCW5NDU/__________________.mp3',type='audio/mp3')
-
+    audio#jsi-dedeeen(hide,preload='auto')
+      source(src='/audios/dedeeen.mp3',type='audio/mp3')
 
   .timeline
       .timeline-item
