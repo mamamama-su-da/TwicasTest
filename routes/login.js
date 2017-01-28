@@ -37,7 +37,7 @@ redirect_uri=${encodeURIComponent(config.redirectUrl)}`;
   .then((res) => res.json())
   .then((json) => {
     console.log(json)
-    res.cookie('auth_token', json.access_token, {maxAge:60000, httpOnly:false});
+    res.cookie('auth_token', json.access_token, {maxAge:600000, httpOnly:false});
     res.redirect(302, '/');
   })
   .catch((err) => {
