@@ -7,10 +7,21 @@ var bodyParser = require('body-parser');
 
 var index = require('./routes/index');
 var users = require('./routes/users');
+var login = require('./routes/login');
 var test = require('./routes/test');
 var hls = require('./routes/hls');
 
 var app = express();
+
+var authCheck = function(req, res, next) {
+  console.log('checking cookie');
+  console.log(req.cookies);
+  if (!req.cookies['auth_token'] || req.cookies['auth_token'] === 'undefined') {
+    res.redirect('/login');
+  } else {
+    next();
+  }
+};
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -31,7 +42,8 @@ app.use(function(req, res, next) {
   next();
 });
 
-app.use('/', index);
+app.use('/login', login);
+app.use('/', authCheck, index);
 app.use('/users', users);
 app.use('/test', test);
 app.use('/hls', hls);
