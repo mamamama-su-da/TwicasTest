@@ -2,8 +2,8 @@ var express = require('express');
 var router = express.Router();
 var fetch = require('node-fetch');
 
-const CLIENT_ID = '170960297.acb267ba481ac03100971914d5c0e825eeb20a10daedf0ee2e986fd69f834c4f';
-const CLIENT_SECRET = 'd43d0f6cb416bc673dd46e3b525787ff283bba85b1c2a05a8d830c78330ee204';
+console.log(process.env.NODE_ENV);
+var config = process.env.NODE_ENV === 'production' ? require('../config/config.prod.js') : require('../config/config.dev.js');
 
 router.get('/',  function(req, res, next) {
   res.render('login');
@@ -11,7 +11,7 @@ router.get('/',  function(req, res, next) {
 
 router.get('/authenticate',  function(req, res, next) {
   const csrf = 'test';
-  res.redirect(302, `https://apiv2.twitcasting.tv/oauth2/authorize?client_id=${CLIENT_ID}&response_type=code&{csrf}`);
+  res.redirect(302, `https://apiv2.twitcasting.tv/oauth2/authorize?client_id=${config.clientId}&response_type=code&{csrf}`);
 });
 
 router.get('/callback',  function(req, res, next) {
@@ -20,9 +20,9 @@ router.get('/callback',  function(req, res, next) {
 
   const body = `code=${encodeURIComponent(code)}&\
 grant_type=authorization_code&\
-client_id=${encodeURIComponent(CLIENT_ID)}&\
-client_secret=${encodeURIComponent(CLIENT_SECRET)}&\
-redirect_uri=${encodeURIComponent('http://localhost:3000/login/callback')}`;
+client_id=${encodeURIComponent(config.clientId)}&\
+client_secret=${encodeURIComponent(config.clientSecret)}&\
+redirect_uri=${encodeURIComponent('config.redirectUrl')}`;
   
   console.log(`body: ${body}`);
 
