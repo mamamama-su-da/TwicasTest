@@ -3,21 +3,19 @@ $(function() {
 
   var video = $('#video').get(0);
   var canvas = $('#tmp-canvas').get(0);
-  console.log(canvas);
   var ctx = canvas.getContext('2d');
 
   function getSnap(){
     ctx.drawImage(video,0,0);
-    var img = new Image();
 
     const imgSrc = canvas.toDataURL('image/png');
     sendImage(imgSrc);
 
+    var img = new Image();
     img.src = imgSrc;
     img.onload = function(){
       img.width = img.width / 2;
       img.height = img.height / 2;
-      console.log(img.width);
       $('#capture').append(img);
     }
   }
@@ -34,17 +32,23 @@ function sendImage(imgSrc) {
   form.append('img', toBlog(imgSrc.split(',')[1]));
   form.append('api_key', apiKey);
   form.append('api_secret', apiSecret);
-  console.log(form);
 
-  fetch(url, {
+  $.ajax({
+    url,
     method: 'POST',
-    body: form
-  }).then((response) => {
-    return response.json();
-  }).then(function(json) {
-    console.log(json);
-  });
+    dataType: 'json',
+    data: form,
+    processData: false,
+    contentType: false,
+  }).done(data => {
+    console.log(data);
 
+    if (data.face && data.face[0]) {
+      const smiling = data.face[0].attribute.smiling.value;
+      console.log(smiling);
+      alert(`笑顔 ${smiling}% !!!`)
+    }
+  });
 }
 
 function toBlog(base64) {

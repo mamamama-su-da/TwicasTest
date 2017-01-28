@@ -22,7 +22,7 @@ router.get('/oauth', function(req, res, next) {
 
   const url = `https://apiv2.twitcasting.tv/oauth2/access_token`;
   const params = {
-    code: 'Wm90lkVZd52NDVcKVJM9Any%2FeoEv7N8R5ijmjc%2BW5VkSJ1sFhpFy0a76o9HlYF2I40iWQ0wvaKKxrb5HeOkBq9cRNACyYKjfx1R0bJ3FmnA3YULaFJNrhRs7v5tvi9LWoQVXlnN4CfqAH%2ByHjWBMm0BJpljg3b7qkmBH4d8V8KO5XEdnupWik4SKK5YUVSUceM9Xl6%2BLjVsHOM56CLFcBSId0f%2F3fefcKxNKh%2Bi1PINOqgvOx9DWH65w97RhHJUt6COzy0X9PHl3qwJH%2FeX80w9SgpQAYOr%2BhQolyUqmM16EPgqdAjJELw4FiSVvSTA5%2FtzmWjxtIhGiTcpze13PfCBC5lKwmKuTUXkZrljxTjEc0Wf831oQJgZDWINABKCJkuTLu%2B7QzxAk%2FOQjR7%2BAtIZrJ8xiSatTYL5ses4PHpjaQcW88ZKS9VeDu6olOW12aExRDseeSY2kaMn3%2Fl700z6rNcYElrASW44zH3buvIKcqF%2FnbGtqy7S%2B2U5vVziwjBsGf0OxtfoQc1%2FpdROhj0aZ0NlRKynGGrphDbgHHN0t9fEkUhD06keGZky1NsO%2FXWXaUI9mXX84mxCipLRgPrNKBOhb7RCyh5G3a8X9TXuR3bB0JJASRkncIU0kBWYHL%2FiiwgoZeaKsc23aPX0YsI9U7CPM3GWDnAn2lpE%2BCFs%3D',
+    code: 'FfiW62KB%2BZRpH9ZFOBzxt9n3N8WQKvOQ7De%2FF%2Fw8pyQSnQbSj3wxoHCsZ8BIWmXQmsZM8ECOvgcLeO6zebX1BetkT3AJbhp7NL%2B8uBY8VVkhceMcitpLYtF7UvnsAs8P8yAGcAHhB0MyT4A0vHhpV%2FvzcSdva8MoxUaddGQddyUvk7PbXNCfbLCBqOFv6MMUfu9GsFUuS60%2F%2FRQ3wwq4HDoYmabhCh%2F0zi%2BUNe0VXMSAFMzs6ZkVfEDL58hMqvo%2B501pc9TrhTITEXER1pkx94CPUHIR9NdFGunnOVGruloYvl98A%2Fqu%2B%2BSxccgwv3yl1XdPUIPBLHYGWnREbiYckbxKEoT4eyvbkbBujqiIK74xx%2FRdIj1Ku%2FpbQYWmg6oMeHc0CjSeDiPDPNfZmgBz8vUTEjU24%2FMwJqikJ%2FawdOfAICeCEblzxcPniNld%2BSxRf%2F%2FYGiqXHpWGiyydJj0IIx%2F%2B1eKfTcLEMenxXJvscAEIMdF9trlu7lUwtYe%2FoWKKBnpXIaeW0TXLUK8t2DYM0LfjoBOJh8rd2mAtSlf6BE%2BA5KiRmBHA5QUGmoLHm%2FpeEwWT4WaYFozft%2FASTDsBkCKXEdPPTYdJYnqLpzmMUi0svAMTz7SAFoRpTYM0XpDcb9FxxDIyvftdyHKba%2FHbZkka0IccREGlihKiBG%2Fx4DE%3D',
     grant_type: 'authorization_code',
     client_id: 'f1133339750118097.feb26badbf353a417f58adb8ae198d5a0dcef3ee7c3fa38e7aed8526acd132e9',
     client_secret: '66dbd809b4c53ce6b98b545b74a458e5054952fa21e6e4c59a032548c3411a64',
@@ -31,7 +31,27 @@ router.get('/oauth', function(req, res, next) {
 
   fetch(url, {
     method: 'POST',
-    body: JSON.stringify(params)
+    body: toForm(params)
+  }).then((response) => {
+    return response.json();
+  }).then(function(json) {
+    res.send(json);
+  });
+});
+router.get('/cast', function(req, res, next) {
+
+  const userId = 'mikesorae';
+
+  const url = `https://apiv2.twitcasting.tv/users/${userId}/current_live`;
+  const accessToken = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6ImJjM2QyODEzNWNkNjVmNTZhM2MxNGZiODNjYzA3ZmM4OTg2ZTlmOTI0ZTYxMWU0OWExZTk0MTUyMDUxMWFmNDQzMzBjNThiNjNkNTRiMmQ2In0.eyJhdWQiOiJmMTEzMzMzOTc1MDExODA5Ny5mZWIyNmJhZGJmMzUzYTQxN2Y1OGFkYjhhZTE5OGQ1YTBkY2VmM2VlN2MzZmEzOGU3YWVkODUyNmFjZDEzMmU5IiwianRpIjoiYmMzZDI4MTM1Y2Q2NWY1NmEzYzE0ZmI4M2NjMDdmYzg5ODZlOWY5MjRlNjExZTQ5YTFlOTQxNTIwNTExYWY0NDMzMGM1OGI2M2Q1NGIyZDYiLCJpYXQiOjE0ODU1NzQ2NDAsIm5iZiI6MTQ4NTU3NDY0MCwiZXhwIjoxNTAxMTI2NjQwLCJzdWIiOiJmOjExMzMzMzk3NTAxMTgwOTciLCJzY29wZXMiOlsicmVhZCIsIndyaXRlIl19.IK8JXspn-uZIkyumv2uZvtFYnxYG5NJFsmHj4R3Xi5TEf4Xxn_T4Lyp8dhz9JdUWerTtWQIJmxEZt8KykVlmwX8uxmY6nsRSOZpnaL0s469NcinWswlKcGfGUAVN5Ejo3FCsg8-OCyr28Izo6D3D1sqeKYJ0aSpw5MJivvhBvy7ctoI89CwiuRhyhPRb79eqdfWyb0huFWp363x0GFETo0eWwgBXaTRNLaDOrDXr0BsVu4nt-QPBFRejRONTewNqQmm0qkTh_1cUthYom38tk77HV5enK7s3NQgQhnpCpVqU421xIoKeSxOQEGwBrmnL1Gdg4ze9w3G4fv2sVY3aYA';
+
+  fetch(url, {
+    headers: {
+      'Accept': 'application/json',
+      'X-Api-Version': '2.0',
+      'Authorization': 'Bearer ' + accessToken
+    },
+    method: 'GET'
   }).then((response) => {
     return response.json();
   }).then(function(json) {
@@ -39,10 +59,19 @@ router.get('/oauth', function(req, res, next) {
   });
 });
 
-router.get('/video', function(req, res, next) {
+function toForm(params) {
+  const form = new FormData();
+  Object.keys(params).forEach(function (key) {
+    form(key, params[key]);
+  });
+  return form;
+}
 
+
+router.get('/video', function(req, res, next) {
   res.render('video', { title: 'Video' });
 });
+
 
 
 
