@@ -7,34 +7,18 @@ block content
   main.main
     .video
       | <object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=10,0,0,0" width="320" height="198" id="livestreamer" align="middle"><param name="allowScriptAccess" value="always" /><param name="allowFullScreen" value="true" /><param name="flashVars" value="user=mikesorae&lang=ja&mute=0&cupdate=0&offline=" /><param name="movie" value="http://twitcasting.tv/swf/livestreamer2sp.swf" /><param name="quality" value="high" /><param name="bgcolor" value="#ffffff" /><embed src="http://twitcasting.tv/swf/livestreamer2sp.swf" quality="high" bgcolor="#ffffff" width="320" height="198" name="livestreamer" id="livestreamderembed" align="middle" allowScriptAccess="always" allowFullScreen="true" type="application/x-shockwave-flash" pluginspage="http://www.adobe.com/go/getflashplayer" flashVars="user=mikesorae&lang=ja&mute=0&cupdate=0&offline=" ></object>
-    .timeline
+  .timeline
+    each comment in comments
       .timeline-item
-        .timeline-item_timestamp 11:07
+        - var date = new Date(comment.created * 1000)
+        - var hours = date.getHours();
+        - var minutes = "0" + date.getMinutes();
+        - var formattedTime = hours + ':' + minutes.substr(-2)
+        .timeline-item_timestamp= formattedTime
         .timeline-item_content
           .timeline-item_img
-            img(src="https://d2dcan0armyq93.cloudfront.net/photo/odai/600/ace577a51592c4e14c7c8c7b87e60320_600.jpg")
-          .timeline-item_comment
-            お前らアキレス腱伸ばした?
+            img(src="")
+          .timeline-item_comment= comment.message
         .timeline-item_icon
-            img(src="https://placehold.it/50x50")
-      .timeline-item
-        .timeline-item_timestamp 10:07
-        .timeline-item_content
-          .timeline-item_comment
-            テスト2
-        .timeline-item_icon
-            img(src="https://placehold.it/50x50")
-      .timeline-item.is-others
-        .timeline-item_timestamp 10:06
-        .timeline-item_content
-          .timeline-item_comment
-            テスト1
-        .timeline-item_icon
-            img(src="https://placehold.it/50x50")
-      .timeline-item.is-others
-        .timeline-item_timestamp 10:06
-        .timeline-item_content
-          .timeline-item_comment
-            テスト1
-        .timeline-item_icon
-            img(src="https://placehold.it/50x50")
+          img(src="#{comment.from_user.image}")
+          span= comment.from_user.name
