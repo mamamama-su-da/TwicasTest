@@ -7,39 +7,44 @@ router.get('/demo', function(req, res, next) {
   res.redirect('/yu68315877');
 });
 
+router.get('/', function(req, res, next) {
+  res.redirect('/mikesorae');
+});
+
 router.get('/:userId', function(req, res, next) {
   const userId = req.params.userId;
   const token = req.cookies['auth_token'];
+
+  getUserInfo(userId, token)
+  .then((info) => {
+    getComments(info.movie.id, token)
+    .then((json) => {
+      // res.render('index', { title: 'Express', comments: json['comments'] });
+      res.render('detail', { title: userId + 'さんの配信', userId, live: info });
+    })
+    .catch((err) => {
+      res.render('detail', { title: userId + 'さんの配信', userId, live: json });
+    });
+  })
+  .catch((err) => {
+    res.render('error', {error: { status: '配信中のライブがありません' }});
+  });
+});
+
+const getUserInfo = function(userId, token) {
   const url = `https://apiv2.twitcasting.tv/users/${userId}/current_live`;
 
-  fetch(url, {
+  return fetch(url, {
     headers: {
       'Accept': 'application/json',
       'X-Api-Version': '2.0',
       'Authorization': 'Bearer ' + token
     },
     method: 'GET'
-  }).then((response) => {
-    return response.json();
-  }).then(function(json) {
-    console.log(json);
-    res.render('detail', { title: userId + 'さんの配信', userId, live: json });
-  });
-
-  // res.render('detail', { title: userId + 'さんの配信', userId });
-});
-
-router.get('/', function(req, res, next) {
-  const token = req.cookies['auth_token'];
-
-  comments = getComments(189037369, token)
-  .then((json) => {
-    res.render('index', { title: 'Express', comments: json['comments'] });
+  }).then((res) => {
+    return res.json();
   })
-  .catch((err) => {
-    res.render('index', { title: 'Express' });
-  });
-});
+};
 
 const getComments = function(movieId, token) {
   const url = `https://apiv2.twitcasting.tv/movies/${movieId}/comments`;

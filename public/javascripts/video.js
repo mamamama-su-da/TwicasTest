@@ -1,6 +1,9 @@
 var socket = io();
 let stop = false;
 let isTanaka = false;
+let batCount = 0;
+let footCount = 0;
+let waiting = false;
 
 $(function() {
   $('#capture-button').click(getSnap);
@@ -79,6 +82,17 @@ function sendImage(imgSrc) {
         const smiling = data.face[0].attribute.smiling.value;
         resolve(smiling);
         console.log(smiling);
+        if (smiling >= 80 && !waiting) {
+          if (isTanaka) {
+            footCount++;
+          } else {
+            batCount++;
+          }
+          waiting = true;
+          setTimeout(function(){
+            waiting = false;
+          }, 10000);
+        }
         emit(smiling);
         // alert(`笑顔 ${smiling}% !!!`)
       } else {
@@ -92,7 +106,9 @@ function emit(warota) {
   socket.emit('warota', {
     userId,
     warota,
-    isTanaka
+    isTanaka,
+    batCount,
+    footCount,
   });
 }
 
