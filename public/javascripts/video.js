@@ -1,5 +1,6 @@
 var socket = io();
 let stop = false;
+let isTanaka = false;
 
 $(function() {
   $('#capture-button').click(getSnap);
@@ -15,6 +16,13 @@ $(function() {
       setTimeout(send, 1000);
     }
     send();
+  });
+
+  $('#tanaka-on').click(() => {
+    isTanaka = true;
+  });
+  $('#tanaka-off').click(() => {
+    isTanaka = false;
   });
 
   var video = $('#video').get(0);
@@ -84,6 +92,7 @@ function emit(warota) {
   socket.emit('warota', {
     userId,
     warota,
+    isTanaka
   });
 }
 
