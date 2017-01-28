@@ -97,7 +97,7 @@ a {
 
 .timeline-item_content {
     flex: 1;
-    padding: 10px;
+    padding: 0 10px;
 }
 
 .timeline-item_img img {
