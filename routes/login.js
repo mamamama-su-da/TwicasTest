@@ -22,7 +22,7 @@ router.get('/callback',  function(req, res, next) {
 grant_type=authorization_code&\
 client_id=${encodeURIComponent(config.clientId)}&\
 client_secret=${encodeURIComponent(config.clientSecret)}&\
-redirect_uri=${encodeURIComponent('config.redirectUrl')}`;
+redirect_uri=${encodeURIComponent(config.redirectUrl)}`;
   
   console.log(`body: ${body}`);
 
